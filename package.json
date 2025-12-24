@@ -1,7 +1,7 @@
 {
-  "name": "meshy-mcp-server",
+  "name": "asset-mcp",
   "version": "0.1.0",
-  "description": "MCP server for Meshy 3D asset generation",
+  "description": "AI agent asset generation framework enabling autonomous creation of 2D, 3D, and audio assets through a unified abstraction layer",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
@@ -14,9 +14,15 @@
   },
   "keywords": [
     "mcp",
-    "meshy",
+    "ai",
+    "agents",
+    "assets",
     "3d",
-    "ai"
+    "2d",
+    "audio",
+    "abstraction",
+    "autonomous",
+    "workflow"
   ],
   "author": "",
   "license": "ISC",
