@@ -1,50 +1,51 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+SYNC IMPACT REPORT
+Version: 1.0.0 -> 1.1.0
+Modified Principles:
+- Added VI. Operational Integrity
+Templates requiring updates:
+- ✅ .specify/templates/plan-template.md (Generic references only)
+- ✅ .specify/templates/spec-template.md (Generic references only)
+- ✅ .specify/templates/tasks-template.md (Generic references only)
+-->
+
+# asset-mcp Constitution
+<!-- Defines the core architectural and operational principles for the asset-mcp project -->
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Extensibility-First
+<!-- Architecture must support new asset types without core refactoring -->
+The system is designed as a plugin-based architecture where new asset types (audio, image, Lottie) can be added as independent modules without modifying the core orchestration logic. Adding a new "type" should never require changes to the main dispatching mechanism.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Provider Abstraction
+<!-- Decouple business logic from specific external APIs -->
+External services (e.g., Meshy, OpenAI, ElevenLabs) must be wrapped in adapters. The core system interacts with these adapters via a unified interface, ensuring provider swaps, API version updates, or fallback strategies do not leak into the business logic.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Configuration-Driven
+<!-- Runtime behavior controlled by config, not code -->
+All external dependencies and behavior modifiers (API keys, model selection, default parameters, timeout settings) must be strictly configuration-driven. The system must support environment variables and runtime configuration overrides to ensure flexibility across different deployment contexts.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Type-Safe Contracts
+<!-- Strict validation at system boundaries -->
+Inputs (generation parameters, animation lists) and outputs (asset files, metadata) must be strictly typed and validated at the boundary (e.g., using Zod). Invalid requests must be rejected with clear errors before reaching any provider logic. Internal data flow must rely on guaranteed types.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Standardized Artifacts
+<!-- Consistent output format regardless of generation source -->
+Every generation request, regardless of type or provider, must yield a consistent artifact structure: the asset file(s), a metadata manifest (provenance, parameters used), and a standardized success/error result object. Consumers should not need provider-specific logic to consume the output.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
-
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### VI. Operational Integrity
+<!-- Environment and configuration hygiene -->
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+<!-- Rules for maintaining and evolving this constitution -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+1.  **Supremacy**: This constitution supersedes all other project documentation and practices. In case of conflict, this document rules.
+2.  **Amendments**: Changes to this document require a Pull Request with explicit justification, a Sync Impact Report, and a version bump.
+3.  **Compliance**: All Code Reviews must verify alignment with these principles. Deviations must be corrected or the constitution amended.
+4.  **Versioning**: The project follows Semantic Versioning (MAJOR.MINOR.PATCH).
+    *   **MAJOR**: Breaking changes to principles or governance.
+    *   **MINOR**: New principles or significant additions.
+    *   **PATCH**: Clarifications or non-semantic fixes.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.1.0 | **Ratified**: 2025-12-24 | **Last Amended**: 2025-12-24
